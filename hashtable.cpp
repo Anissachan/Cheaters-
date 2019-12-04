@@ -2,19 +2,16 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <stdlib.h>
-
-using namespace std;
 
 void hashTable::hashFunction(string &word, int key) {
     int index = 0;
-    int multiplier = 5;
-    int num = 13;
-    
-    for(int i = 0; i < (MAXSIZE - 1); i++){
-        index = (MAXSIZE - i - 1)*pow(37,i);
+    int multiplier = 1;
+    for(int i = 0 ; i< word.length(); i+=2){
+        multiplier = multiplier * 5;
+        index = index + (word[word.length()-i-1] * multiplier);
     }
-    
+
+    index = index % 50051;
 
     HashNode* temp = new HashNode;
     temp ->value = key;
@@ -28,3 +25,4 @@ void hashTable::hashFunction(string &word, int key) {
         table[index] = temp;
     }
 }
+
