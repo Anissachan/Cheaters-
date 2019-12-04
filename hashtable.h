@@ -1,23 +1,30 @@
+//
+// Created by aniss on 12/4/2019.
+//
+
+#include "hashtable.h"
 #include <iostream>
 #include <vector>
 #include <string>
 
-using namespace std;
+void hashTable::hashFunction(string &word, int key) {
+    int index = 0;
+    int multiplier = 5;
+    int num = 1;
 
-class hashTable{
+    for(int i = 0; i < (MAXSIZE - 1); i++){
+        index = (MAXSIZE - i - 1)*pow(37,i);
+    }
 
-    private:
-        struct HashNode{
-            int value;
-            HashNode* next;
-            
-            HashNode *table[50051];
-        };
+    HashNode* temp = new HashNode;
+    temp ->value = key;
 
-    public:
-        hashTable();
-        void hashFunction(string &word, int key);
-        int* detectCollision(int numFiles, vector<string> &files);
-        ~hashTable();
-
-};
+    if(table[index] == NULL){
+        temp->next = NULL;
+        table[index] = temp;
+    }
+    else{
+        temp->next = table[index];
+        table[index] = temp;
+    }
+}
