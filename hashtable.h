@@ -10,6 +10,8 @@ class hashTable{
         struct HashNode{
             int value;
             HashNode* next;
+            
+            HashNode *table[50051];
         };
 
     public:
