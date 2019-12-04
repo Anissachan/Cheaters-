@@ -5,15 +5,13 @@
 
 void hashTable::hashFunction(string &word, int key) {
     int index = 0;
-    int multiplier = 1;
+    int multiplier = 5;
     int num = 13;
-
-    for(int i = 0 ; i< word.length(); i = i++){
-        multiplier = num * multiplier;
-        index = index + (word[i]*multiplier);
+    
+    for(int i = 0; i < (MAXSIZE - 1); i++){
+        index = (MAXSIZE - i - 1)*pow(37,i);
     }
-
-    index = index%50003;
+    
 
     HashNode* temp = new HashNode;
     temp ->value = key;
