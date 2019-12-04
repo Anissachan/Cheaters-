@@ -5,8 +5,8 @@
 
 void hashTable::hashFunction(string &word, int key) {
     int index = 0;
-    int multiplier = 13;
-    int num = 1;
+    int multiplier = 1;
+    int num = 13;
 
     for(int i = 0 ; i< word.length(); i = i++){
         multiplier = num * multiplier;
