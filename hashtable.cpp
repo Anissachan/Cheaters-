@@ -3,6 +3,8 @@
 #include <vector>
 #include <string>
 
+using namespace std;
+
 void hashTable::hashFunction(string &word, int key) {
     int index = 0;
     int multiplier = 5;
