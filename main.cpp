@@ -35,7 +35,7 @@ int main() {
     string dir = string("sm_doc_set");
     int n = 4;
     int limit = 200;
-    hashTable *HashTable = new hashTable;
+    hashTable *HashTable;
 
     vector<string> files = vector<string>();
     getdir(dir, files);
