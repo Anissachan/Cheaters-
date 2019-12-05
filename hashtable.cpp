@@ -1,7 +1,8 @@
-#include "hashtable.h"
 #include <iostream>
 #include <vector>
 #include <string>
+#include "hashtable.h"
+#include "collisionMatrix.h"
 
 using namespace std;
 
@@ -24,7 +25,7 @@ void hashTable::hashFunction(string &word, int fileIndex) {
     index = index % MAX_SIZE;
 
     HashNode* temp = new HashNode;
-    temp ->value = fileIndex;
+    temp ->fileIndex = fileIndex;
 
 
     if(table[index] == NULL){
@@ -36,5 +37,33 @@ void hashTable::hashFunction(string &word, int fileIndex) {
         table[index] = temp;
     }
 }
+
+    int* hashTable::detectCollision(int numFiles, vector<string> &files){
+
+        collisionMatrix matrix(numFiles);
+
+        for(int i=0; i<MAX_SIZE; i++){
+            while(table[i] != NULL){
+            HashNode* temp = table[i];
+            int fileNumber = temp->fileIndex;
+
+            while(temp != NULL){
+                if (fileNumber != NULL){
+                    matrix.increment(fileNumber, temp->fileIndex);
+                }
+                temp = temp->next;
+            }
+            temp = table[i];
+            table[i] = table[i] ->next;
+            delete(temp);
+        }
+    }
+}
+
+
+
+
+
+
 
 
