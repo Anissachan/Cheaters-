@@ -11,7 +11,6 @@ hashTable::hashTable() {
     for(int i=0; i<MAX_SIZE; i++){
         table[i] = NULL;
     }
-    cout<<"Table Size : "<<table;
 }
 
 void hashTable::hashFunction(string &word, int fileIndex) {
@@ -38,7 +37,7 @@ void hashTable::hashFunction(string &word, int fileIndex) {
     }
 }
 
-    int* hashTable::detectCollision(int numFiles, vector<string> &files){
+    void hashTable::detectCollision(int numFiles, vector<string> &files){
 
         collisionMatrix matrix(numFiles);
 
@@ -48,7 +47,7 @@ void hashTable::hashFunction(string &word, int fileIndex) {
             int fileNumber = temp->fileIndex;
 
             while(temp != NULL){
-                if (fileNumber != NULL){
+                if (fileNumber != temp->fileIndex){
                     matrix.increment(fileNumber, temp->fileIndex);
                 }
                 temp = temp->next;
@@ -56,12 +55,10 @@ void hashTable::hashFunction(string &word, int fileIndex) {
             temp = table[i];
             table[i] = table[i] ->next;
             delete(temp);
+            }
         }
-    }
+        matrix.showMatrix(numFiles, numFiles);
 }
-
-
-
 
 
 
