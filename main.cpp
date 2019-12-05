@@ -35,7 +35,7 @@ int main() {
     string dir = string("sm_doc_set");
     int n = 4;
     int limit = 200;
-    hashTable *HashTable;
+    hashTable* HashTable;
 
     vector<string> files = vector<string>();
     getdir(dir, files);
@@ -77,11 +77,15 @@ int main() {
                 queue.erase(queue.begin());
             }
         }
+        else{
+            cout<<"File not found";
+            return 0;
+        }
+        file.close();
 
     }
     return 0;
 }
-
 
 
 
