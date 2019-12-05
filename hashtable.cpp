@@ -3,18 +3,29 @@
 #include <vector>
 #include <string>
 
-void hashTable::hashFunction(string &word, int key) {
-    int index = 0;
+using namespace std;
+
+hashTable::hashTable() {
+
+    for(int i=0; i<MAX_SIZE; i++){
+        table[i] = NULL;
+    }
+    cout<<"Table Size : "<<table;
+}
+
+void hashTable::hashFunction(string &word, int fileIndex) {
+    unsigned int index = 0;
     int multiplier = 1;
-    for(int i = 0 ; i< word.length(); i+=2){
+    for(int i = 0 ; i< word.length(); ++i){
         multiplier = multiplier * 5;
         index = index + (word[word.length()-i-1] * multiplier);
     }
 
-    index = index % 50051;
+    index = index % MAX_SIZE;
 
     HashNode* temp = new HashNode;
-    temp ->value = key;
+    temp ->value = fileIndex;
+
 
     if(table[index] == NULL){
         temp->next = NULL;
@@ -25,4 +36,5 @@ void hashTable::hashFunction(string &word, int key) {
         table[index] = temp;
     }
 }
+
 
