@@ -37,7 +37,7 @@ void hashTable::hashFunction(string &word, int fileIndex) {
     }
 }
 
-    void hashTable::detectCollision(int numFiles, vector<string> &files){
+    int* hashTable::detectCollision(int numFiles, vector<string> &files){
 
         collisionMatrix matrix(numFiles);
 
