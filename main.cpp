@@ -7,12 +7,17 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#include "hashtable.h"
 #include <queue>
 #include <fstream>
 #include <stdlib.h>
+#include "collisionMatrix.h"
+#include "hashtable.h"
+
 
 using namespace std;
+
+int* detectCollision(int numFiles, vector<string> &files, collisionMatrix matrix);
+
 
 /*function... might want it in some class?*/
 int getdir (string dir, vector<string> &files)
@@ -31,6 +36,7 @@ int getdir (string dir, vector<string> &files)
     return 0;
 }
 
+
 int main() {
     string dir = string("sm_doc_set");
     int n = 4;
@@ -39,6 +45,7 @@ int main() {
 
     vector<string> files = vector<string>();
     getdir(dir, files);
+    ifstream file;
 
     for (unsigned int i = 0; i < files.size(); i++) {
 
@@ -47,11 +54,10 @@ int main() {
             i--;
         }
     }
+
     for (unsigned int i = 0; i < files.size(); i++) {
         cout << i << files[i] << endl;
     }
-
-    ifstream file;
 
     for (int i = 0; i < files.size(); i++) {
         string filePtr = dir + '/' + files[i];
@@ -77,15 +83,18 @@ int main() {
                 queue.erase(queue.begin());
             }
         }
+
         else{
             cout<<"File not found";
             return 0;
         }
         file.close();
-
     }
+
+    HashTable->detectCollision(files.size(), files);
     return 0;
 }
+
 
 
 
