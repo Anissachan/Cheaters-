@@ -63,3 +63,10 @@ void collisionMatrix::showMatrix(int rows, int cols) {
         }
     }
 }
+
+collisionMatrix::~collisionMatrix() {
+    for(int i = 0; i < rows; i++){
+        delete[] m[i];
+    }
+    delete[] m;
+}
