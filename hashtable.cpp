@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <algorithm>
+#include <fstream>
 #include "hashtable.h"
 #include "collisionMatrix.h"
 
@@ -37,29 +39,57 @@ void hashTable::hashFunction(string &word, int fileIndex) {
     }
 }
 
-    int* hashTable::detectCollision(int numFiles, vector<string> &files){
+int* hashTable::detectCollision(int numFiles, vector<string> &files) {
 
-        collisionMatrix matrix(numFiles);
+    collisionMatrix matrix(numFiles);
 
-        for(int i=0; i<MAX_SIZE; i++){
-            while(table[i] != NULL){
-            HashNode* temp = table[i];
+    for (int i = 0; i < MAX_SIZE; i++) {
+        while (table[i] != NULL) {
+            HashNode *temp = table[i];
             int fileNumber = temp->fileIndex;
 
-            while(temp != NULL){
-                if (fileNumber != temp->fileIndex){
+            while (temp != NULL) {
+                if (fileNumber != temp->fileIndex) {
                     matrix.increment(fileNumber, temp->fileIndex);
                 }
                 temp = temp->next;
             }
             temp = table[i];
-            table[i] = table[i] ->next;
-            delete(temp);
+            table[i] = table[i]->next;
+            delete (temp);
+        }
+    }
+    matrix.showMatrix(numFiles, numFiles);
+
+
+    //finding the greatest collision and outputting it
+    int collisionCompare = 200;
+    vector<int> collisions;
+    vector<string> rowFile;
+    vector <string> colFile;
+    for (int i = 0; i < files.size(); i++) {
+        for (int j = 0; j < files.size(); j++) {
+            if (matrix.getValue(i, j) > collisionCompare) {
+                collisions.push_back(matrix.getValue(i,j));
+                rowFile.push_back(files.at(i));
+                colFile.push_back(files.at(j));
+                }
             }
         }
-        matrix.showMatrix(numFiles, numFiles);
-}
+    sort(collisions.begin(), collisions.end(), greater<int>());
 
+
+    vector<int>::iterator it = collisions.begin();
+    vector<string>::iterator here = rowFile.begin();
+    vector<string>::iterator there = colFile.begin();
+    while(it != collisions.end()){
+       cout << " " << *it << ": " << *here << ", " << "" << *there << endl;
+
+       it++;
+       here++;
+       there++;
+    }
+}
 
 
 
